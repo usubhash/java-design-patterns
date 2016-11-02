@@ -1,0 +1,106 @@
+@startuml
+package com.iluwatar.specification.creature {
+  abstract class AbstractCreature {
+    - color : Color
+    - movement : Movement
+    - name : String
+    - size : Size
+    + AbstractCreature(name : String, size : Size, movement : Movement, color : Color)
+    + getColor() : Color
+    + getMovement() : Movement
+    + getName() : String
+    + getSize() : Size
+    + toString() : String
+  }
+  class Troll {
+    + Troll()
+  }
+  class Octopus {
+    + Octopus()
+  }
+  class Shark {
+    + Shark()
+  }
+  class Goblin {
+    + Goblin()
+  }
+  class KillerBee {
+    + KillerBee()
+  }
+  interface Creature {
+    + getColor() : Color {abstract}
+    + getMovement() : Movement {abstract}
+    + getName() : String {abstract}
+    + getSize() : Size {abstract}
+  }
+  class Dragon {
+    + Dragon()
+  }
+}
+package com.iluwatar.specification.property {
+  enum Size {
+    + LARGE {static}
+    + NORMAL {static}
+    + SMALL {static}
+    - title : String
+    + toString() : String
+    + valueOf(name : String) : Size {static}
+    + values() : Size[] {static}
+  }
+  enum Color {
+    + DARK {static}
+    + GREEN {static}
+    + LIGHT {static}
+    + RED {static}
+    - title : String
+    + toString() : String
+    + valueOf(name : String) : Color {static}
+    + values() : Color[] {static}
+  }
+  enum Movement {
+    + FLYING {static}
+    + SWIMMING {static}
+    + WALKING {static}
+    - title : String
+    + toString() : String
+    + valueOf(name : String) : Movement {static}
+    + values() : Movement[] {static}
+  }
+}
+package com.iluwatar.specification.app {
+  class App {
+    + App()
+    + main(args : String[]) {static}
+  }
+}
+package com.iluwatar.specification.selector {
+  class MovementSelector {
+    - m : Movement
+    + MovementSelector(m : Movement)
+    + test(t : Creature) : boolean
+  }
+  class ColorSelector {
+    - c : Color
+    + ColorSelector(c : Color)
+    + test(t : Creature) : boolean
+  }
+  class SizeSelector {
+    - s : Size
+    + SizeSelector(s : Size)
+    + test(t : Creature) : boolean
+  }
+}
+SizeSelector -->  "-s" Size
+AbstractCreature -->  "-color" Color
+MovementSelector -->  "-m" Movement
+AbstractCreature -->  "-movement" Movement
+AbstractCreature -->  "-size" Size
+ColorSelector -->  "-c" Color
+AbstractCreature ..|> Creature 
+Troll --|> AbstractCreature 
+Octopus --|> AbstractCreature 
+Shark --|> AbstractCreature 
+Goblin --|> AbstractCreature 
+KillerBee --|> AbstractCreature 
+Dragon --|> AbstractCreature 
+@enduml

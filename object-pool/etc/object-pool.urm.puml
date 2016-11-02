@@ -1,0 +1,29 @@
+@startuml
+package com.iluwatar.object.pool {
+  class OliphauntPool {
+    + OliphauntPool()
+    # create() : Oliphaunt
+  }
+  class Oliphaunt {
+    - counter : int {static}
+    - id : int
+    + Oliphaunt()
+    + getId() : int
+    + toString() : String
+  }
+  abstract class ObjectPool<T> {
+    - available : HashSet<T>
+    - inUse : HashSet<T>
+    + ObjectPool<T>()
+    + checkIn(instance : T)
+    + checkOut() : T
+    # create() : T {abstract}
+    + toString() : String
+  }
+  class App {
+    + App()
+    + main(args : String[]) {static}
+  }
+}
+OliphauntPool --|> ObjectPool 
+@enduml

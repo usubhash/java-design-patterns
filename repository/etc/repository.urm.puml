@@ -1,0 +1,56 @@
+@startuml
+package com.iluwatar.repository {
+  class PersonSpecifications {
+    + PersonSpecifications()
+  }
+  class NameEqualSpec {
+    + name : String
+    + NameEqualSpec(name : String)
+    + toPredicate(root : Root<Person>, query : CriteriaQuery<?>, cb : CriteriaBuilder) : Predicate
+  }
+  class App {
+    + App()
+    + main(args : String[]) {static}
+  }
+  interface PersonRepository {
+    + findByName(String) : Person {abstract}
+  }
+  class AgeBetweenSpec {
+    - from : int
+    - to : int
+    + AgeBetweenSpec(from : int, to : int)
+    + toPredicate(root : Root<Person>, query : CriteriaQuery<?>, cb : CriteriaBuilder) : Predicate
+  }
+  class AppConfig {
+    + AppConfig()
+    + dataSource() : DataSource
+    + entityManagerFactory() : LocalContainerEntityManagerFactoryBean
+    - jpaProperties() : Properties {static}
+    + main(args : String[]) {static}
+    + transactionManager() : JpaTransactionManager
+  }
+  class Person {
+    - age : int
+    - id : Long
+    - name : String
+    - surname : String
+    + Person()
+    + Person(name : String, surname : String, age : int)
+    + equals(obj : Object) : boolean
+    + getAge() : int
+    + getId() : Long
+    + getName() : String
+    + getSurname() : String
+    + hashCode() : int
+    + setAge(age : int)
+    + setId(id : Long)
+    + setName(name : String)
+    + setSurname(surname : String)
+    + toString() : String
+  }
+}
+App --+ PersonSpecifications
+AppConfig --+ PersonSpecifications
+NameEqualSpec ..+ PersonSpecifications
+AgeBetweenSpec ..+ PersonSpecifications
+@enduml

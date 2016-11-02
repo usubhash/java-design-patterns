@@ -1,0 +1,60 @@
+@startuml
+package com.iluwatar.flyweight {
+  class PotionFactory {
+    - potions : Map<PotionType, Potion>
+    + PotionFactory()
+    ~ createPotion(type : PotionType) : Potion
+  }
+  class HealingPotion {
+    + HealingPotion()
+    + drink()
+  }
+  class InvisibilityPotion {
+    + InvisibilityPotion()
+    + drink()
+  }
+  class AlchemistShop {
+    - bottomShelf : List<Potion>
+    - topShelf : List<Potion>
+    + AlchemistShop()
+    + enumerate()
+    - fillShelves()
+    + getBottomShelf() : List<Potion>
+    + getTopShelf() : List<Potion>
+  }
+  class App {
+    + App()
+    + main(args : String[]) {static}
+  }
+  interface Potion {
+    + drink() {abstract}
+  }
+  class PoisonPotion {
+    + PoisonPotion()
+    + drink()
+  }
+  class StrengthPotion {
+    + StrengthPotion()
+    + drink()
+  }
+  class HolyWaterPotion {
+    + HolyWaterPotion()
+    + drink()
+  }
+  enum PotionType {
+    + HEALING {static}
+    + HOLY_WATER {static}
+    + INVISIBILITY {static}
+    + POISON {static}
+    + STRENGTH {static}
+    + valueOf(name : String) : PotionType {static}
+    + values() : PotionType[] {static}
+  }
+}
+AlchemistShop -->  "-topShelf" Potion
+HealingPotion ..|> Potion 
+InvisibilityPotion ..|> Potion 
+PoisonPotion ..|> Potion 
+StrengthPotion ..|> Potion 
+HolyWaterPotion ..|> Potion 
+@enduml
